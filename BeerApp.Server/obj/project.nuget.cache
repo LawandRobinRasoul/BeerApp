@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "XUr+XDTpW1I=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lawand.rasoul\\source\\repos\\BeerApp\\BeerApp.Server\\BeerApp.Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lawand.rasoul\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\lawand.rasoul\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.3\\microsoft.aspnetcore.spaproxy.9.0.3.nupkg.sha512",
+    "C:\\Users\\lawand.rasoul\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
