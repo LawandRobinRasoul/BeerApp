@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\lawand.rasoul\source\repos\BeerApp\HomeView.vue -->
 <template>
   <div class="home-view full-layout">
     <!-- Search Bar -->
@@ -25,10 +24,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import BeerCard from '@/components/BeerCard.vue';
 
+// Define the Beer interface for TypeScript
 interface Beer {
   name: string;
   rating: string;
@@ -36,43 +36,35 @@ interface Beer {
   description: string;
 }
 
-export default defineComponent({
-  name: 'HomeView',
-  components: { BeerCard },
-  setup() {
-    const searchQuery = ref<string>('');
-    const beers = ref<Beer[]>([
-      { name: 'Lager', rating: '4.5', image: 'lager.png', description: 'A smooth and crisp beer.' },
-      { name: 'IPA', rating: '4.7', image: 'ipa.png', description: 'A hoppy and bitter beer.' },
-      { name: 'Stout', rating: '4.8', image: 'stout.png', description: 'A rich and creamy beer.' },
-    ]);
+// Reactive state for search query
+const searchQuery = ref('');
 
-    const selectedBeer = ref<Beer | null>(null);
+// Reactive state for beers array
+const beers = ref<Beer[]>([
+  { name: 'Lager', rating: '4.5', image: 'lager.png', description: 'A smooth and crisp beer.' },
+  { name: 'IPA', rating: '4.7', image: 'ipa.png', description: 'A hoppy and bitter beer.' },
+  { name: 'Stout', rating: '4.8', image: 'stout.png', description: 'A rich and creamy beer.' },
+]);
 
-    const filteredBeers = computed(() =>
-      beers.value.filter((beer) =>
-        beer.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-      )
-    );
+// Reactive state for selected beer (for modal)
+const selectedBeer = ref<Beer | null>(null);
 
-    const openModal = (beer: Beer) => {
-      selectedBeer.value = beer;
-    };
+// Computed property to filter beers based on search query
+const filteredBeers = computed(() =>
+  beers.value.filter((beer) =>
+    beer.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
 
-    const closeModal = () => {
-      selectedBeer.value = null;
-    };
-    
-    return {
-      searchQuery,
-      beers,
-      filteredBeers,
-      selectedBeer,
-      openModal,
-      closeModal,
-    };
-  },
-});
+// Function to open the modal with the selected beer
+const openModal = (beer: Beer) => {
+  selectedBeer.value = beer;
+};
+
+// Function to close the modal
+const closeModal = () => {
+  selectedBeer.value = null;
+};
 </script>
 
 <style scoped>
