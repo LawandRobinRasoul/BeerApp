@@ -62,7 +62,7 @@ export default defineComponent({
     const closeModal = () => {
       selectedBeer.value = null;
     };
-
+    
     return {
       searchQuery,
       beers,

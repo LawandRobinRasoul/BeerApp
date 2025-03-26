@@ -6,12 +6,59 @@
       <h3>{{ beer.name }}</h3>
       <p>Rating: {{ beer.rating }}</p>
       <p>{{ beer.description }}</p>
+
+      <!-- Sliders for rating -->
+      <div class="rating-section">
+        <div class="rating-item">
+          <label for="bitterness">Bitterness: {{ ratings.bitterness }}</label>
+          <input
+            id="bitterness"
+            type="range"
+            min="1"
+            max="10"
+            v-model="ratings.bitterness"
+          />
+        </div>
+        <div class="rating-item">
+          <label for="sweetness">Sweetness: {{ ratings.sweetness }}</label>
+          <input
+            id="sweetness"
+            type="range"
+            min="1"
+            max="10"
+            v-model="ratings.sweetness"
+          />
+        </div>
+        <div class="rating-item">
+          <label for="fruitiness">Fruitiness: {{ ratings.fruitiness }}</label>
+          <input
+            id="fruitiness"
+            type="range"
+            min="1"
+            max="10"
+            v-model="ratings.fruitiness"
+          />
+        </div>
+      </div>
+
+      <!-- Review Textbox -->
+      <div class="review-section">
+        <label for="review">Write a Review:</label>
+        <textarea
+          id="review"
+          v-model="review"
+          placeholder="Write your review here..."
+        ></textarea>
+      </div>
+
+      <!-- Rate Button -->
+      <button class="rate-button" @click="submitRating">Rate</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, reactive, ref } from 'vue';
 
 const props = defineProps({
   beer: {
@@ -24,6 +71,21 @@ const emit = defineEmits(['close']);
 
 const close = () => {
   emit('close');
+};
+
+// Reactive object to store ratings
+const ratings = reactive({
+  bitterness: 5,
+  sweetness: 5,
+  fruitiness: 5,
+});
+
+// Review text
+const review = ref('');
+
+// Method to handle rating submission
+const submitRating = () => {
+  console.log('Rating submitted:', { ...ratings, review: review.value });
 };
 </script>
 
@@ -65,5 +127,53 @@ const close = () => {
   height: 150px;
   object-fit: cover;
   border-radius: 4px;
+}
+
+.rating-section {
+  margin-top: 20px;
+}
+
+.rating-item {
+  margin-bottom: 15px;
+}
+
+.rating-item label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.rating-item input[type='range'] {
+  width: 100%;
+}
+
+.review-section label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.review-section textarea {
+  width: 100%;
+  height: 60px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+}
+
+.rate-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #003366;
+  color: #ffd700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.rate-button:hover {
+  background-color: #00274d;
 }
 </style>
