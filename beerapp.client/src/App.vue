@@ -88,22 +88,6 @@ const isSmallScreen = smAndDown;
 .v-list-item:hover {
   background-color: #003366; /* Hover effect with a lighter blue */
 }
-
-/* Main content styles */
-.v-main {
-  background-color: #f8f8f8; /* Light background for contrast */
-  color: #00274d; /* Dark blue text */
-  padding: 16px;
-}
-
-.v-main.full-layout {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
 </style>
 
 
