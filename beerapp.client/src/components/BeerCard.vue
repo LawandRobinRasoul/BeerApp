@@ -15,7 +15,7 @@
             id="bitterness"
             type="range"
             min="1"
-            max="10"
+            max="5"
             v-model="ratings.bitterness"
           />
         </div>
@@ -25,7 +25,7 @@
             id="sweetness"
             type="range"
             min="1"
-            max="10"
+            max="5"
             v-model="ratings.sweetness"
           />
         </div>
@@ -35,7 +35,7 @@
             id="fruitiness"
             type="range"
             min="1"
-            max="10"
+            max="5"
             v-model="ratings.fruitiness"
           />
         </div>
