@@ -25,8 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import BeerCard from '@/components/BeerCard.vue';
+import { GetBeers } from '@/beerApiClient.ts';
 
 // Define the Beer interface for TypeScript
 interface Beer {
@@ -40,11 +41,7 @@ interface Beer {
 const searchQuery = ref('');
 
 // Reactive state for beers array
-const beers = ref<Beer[]>([
-  { name: 'Lager', rating: '4.5', image: 'lager.png', description: 'A smooth and crisp beer.' },
-  { name: 'IPA', rating: '4.7', image: 'ipa.png', description: 'A hoppy and bitter beer.' },
-  { name: 'Stout', rating: '4.8', image: 'stout.png', description: 'A rich and creamy beer.' },
-]);
+const beers = ref<Beer[]>([]); // Initialize as an empty array
 
 // Reactive state for selected beer (for modal)
 const selectedBeer = ref<Beer | null>(null);
@@ -65,6 +62,11 @@ const openModal = (beer: Beer) => {
 const closeModal = () => {
   selectedBeer.value = null;
 };
+
+// Fetch beers on component mount
+onMounted(async () => {
+  beers.value = await GetBeers();
+});
 </script>
 
 <style scoped>

@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, reactive, ref } from 'vue';
+import {reactive, ref } from 'vue';
 
 const props = defineProps({
   beer: {
