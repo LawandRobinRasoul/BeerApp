@@ -2,7 +2,8 @@
 {
     public interface IBeerRepository
     {
-        Task<List<BeerDto>> GetBeersAsync();
+        Task<List<BeerDto>> GetBeersWithMostReviewsAsync();
+        Task<List<BeerDto>> GetBeersBySearch(string beerName);
         Task<BeerDto> GetBeerByIdAsync(int id);
         Task<List<ReviewDto>> GetReviewsByBeerIdAsync(int beerId);
         Task AddBeerAsync(BeerDto beer);

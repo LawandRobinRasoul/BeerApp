@@ -9,5 +9,9 @@ public record ReviewDto
     public int FruitinessScore { get; init; }
     public int SweetnessScore { get; init; }    
     public int Rating { get; init; }
+
+    public DateTimeOffset CreatedAt { get; init; }
+    public DateTimeOffset UpdatedAt { get; init; }
+
     public BeerDto Beer { get; init; } = null!;
 }

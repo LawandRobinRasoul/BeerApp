@@ -1,4 +1,5 @@
 using BeerApp.Server.Controllers.ApiModels;
+using BeerApp.Server.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeerApp.Server.Controllers
@@ -8,27 +9,27 @@ namespace BeerApp.Server.Controllers
     public class BeerController : ControllerBase
     {
         private readonly ILogger<BeerController> _logger;
+        private readonly BeerService _beerService;
 
-        public BeerController(ILogger<BeerController> logger)
+        public BeerController(ILogger<BeerController> logger, BeerService beerService)
         {
             _logger = logger;
+            _beerService = beerService;
         }
 
-        [HttpGet(Name = "GeetBeer")]
+        [HttpGet(Name = "GeetBeersMostReviews")]
         public IActionResult Get()
         {
-            List<BeerApiModel> beers = new List<BeerApiModel>() 
-            { 
-                new BeerApiModel()
-                {
-                    Id = 1,
-                    Description = "1",
-                    ImageUrl = "1",
-                    Name = "1",
-                    Rating = "1"
-                }   
-            };
-            return Ok(beers);
+            try
+            {
+                var beers = _beerService.GetBeersMostReviewedAsync().Result;
+                return Ok(beers);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting beers");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+using BeerApp.Server.Core;
+using BeerApp.Server.Infra.Repos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,10 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<BeerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+
+builder.Services.AddScoped<IBeerRepository, BeerRepository>();
+
+builder.Services.AddScoped<BeerService>();
 
 var app = builder.Build();
 
