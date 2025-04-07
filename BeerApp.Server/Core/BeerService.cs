@@ -18,12 +18,12 @@
             return await _beerRepository.GetBeersBySearch(beerName);
         }
 
-        public async Task<BeerDto> GetBeerById(int beerId)
+        public async Task<BeerDto?> GetBeerById(int beerId)
         {
             return await _beerRepository.GetBeerByIdAsync(beerId);
         }
 
-        public async Task<List<ReviewDto>> GerReviewsForBeerById(int beerId)
+        public async Task<List<ReviewDto>> GetReviewsForBeerById(int beerId)
         {
             return await _beerRepository.GetReviewsByBeerIdAsync(beerId);   
         }

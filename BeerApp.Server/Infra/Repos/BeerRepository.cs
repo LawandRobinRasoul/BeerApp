@@ -22,9 +22,9 @@ namespace BeerApp.Server.Infra.Repos
         }
 
 
-        public async Task<BeerDto> GetBeerByIdAsync(int beerId)
+        public async Task<BeerDto?> GetBeerByIdAsync(int beerId)
         {
-            return await _beerDbContext.Beers.Where(b => b.Id == beerId).SingleAsync();
+            return await _beerDbContext.Beers.Where(b => b.Id == beerId).SingleOrDefaultAsync();
         }
 
         public async Task<List<BeerDto>> GetBeersBySearch(string beerName)

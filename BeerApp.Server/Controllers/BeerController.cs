@@ -1,35 +1,86 @@
-using BeerApp.Server.Controllers.ApiModels;
 using BeerApp.Server.Core;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeerApp.Server.Controllers
+[ApiController]
+[Route("[controller]")]
+public class BeerController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class BeerController : ControllerBase
+    private readonly ILogger<BeerController> _logger;
+    private readonly BeerService _beerService;
+
+    public BeerController(ILogger<BeerController> logger, BeerService beerService)
     {
-        private readonly ILogger<BeerController> _logger;
-        private readonly BeerService _beerService;
+        _logger = logger;
+        _beerService = beerService;
+    }
 
-        public BeerController(ILogger<BeerController> logger, BeerService beerService)
+    [HttpGet(Name = "GetBeersMostReviews")]
+    public async Task<IActionResult> GetBeers()
+    {
+        try
         {
-            _logger = logger;
-            _beerService = beerService;
+            var beers = await _beerService.GetBeersMostReviewedAsync();
+            return Ok(beers);
         }
-
-        [HttpGet(Name = "GeetBeersMostReviews")]
-        public IActionResult Get()
+        catch (Exception ex)
         {
-            try
+            _logger.LogError(ex, "Error getting beers");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("search", Name = "GetBeersByQuery")]
+    public async Task<IActionResult> GetBeersBySearch([FromQuery] string beerName)
+    {
+        try
+        {
+            var beers = await _beerService.GetBeersBySearch(beerName);
+            return Ok(beers);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting beers");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("{id}", Name = "GetBeerById")]
+    public async Task<IActionResult> GetBeerById([FromRoute] string id)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(id) || !int.TryParse(id, out int beerId))
             {
-                var beers = _beerService.GetBeersMostReviewedAsync().Result;
-                return Ok(beers);
+                return BadRequest("Invalid or missing Beer ID is required");
             }
-            catch (Exception ex)
+
+            var beer = await _beerService.GetBeerById(beerId);
+            return Ok(beer);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting beer");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("{id}/reviews", Name = "GetBeerReviews")]
+    public async Task<IActionResult> GetBeerReviewsById([FromRoute] string id)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(id) || !int.TryParse(id, out int beerId))
             {
-                _logger.LogError(ex, "Error getting beers");
-                return StatusCode(500, "Internal server error");
+                return BadRequest("Invalid or missing Beer ID is required");
             }
+
+            var beers = await _beerService.GetReviewsForBeerById(beerId);
+            return Ok(beers);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting beers");
+            return StatusCode(500, "Internal server error");
         }
     }
 }
