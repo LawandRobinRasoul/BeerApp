@@ -16,5 +16,13 @@ public class BeerDbContext : DbContext
             .WithMany(b => b.Reviews)
             .HasForeignKey(r => r.BeerId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<BeerEntity>()
+            .Property(p => p.CreatedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
+
+        modelBuilder.Entity<ReviewEntity>()
+            .Property(p => p.CreatedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
     }
 }

@@ -16,7 +16,6 @@ public record BeerEntity
 
     public  string? imageUrl { get; init; }
 
-    [Required]
     public  DateTimeOffset CreatedAt { get; init; }
 
     public List<ReviewEntity> Reviews { get; set; } = new();
