@@ -1,3 +1,4 @@
+using BeerApp.Server.Controllers.ApiModels.Request;
 using BeerApp.Server.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ public class BeerController : ControllerBase
     {
         try
         {
-            var beers = await _beerService.GetBeersBySearch(beerName);
+            var beers = await _beerService.GetBeersBySearchAsync(beerName);
             return Ok(beers);
         }
         catch (Exception ex)
@@ -54,7 +55,7 @@ public class BeerController : ControllerBase
                 return BadRequest("Invalid or missing Beer ID is required");
             }
 
-            var beer = await _beerService.GetBeerById(beerId);
+            var beer = await _beerService.GetBeerByIdAsync(beerId);
             return Ok(beer);
         }
         catch (Exception ex)
@@ -74,12 +75,27 @@ public class BeerController : ControllerBase
                 return BadRequest("Invalid or missing Beer ID is required");
             }
 
-            var beers = await _beerService.GetReviewsForBeerById(beerId);
+            var beers = await _beerService.GetReviewsForBeerByIdAsync(beerId);
             return Ok(beers);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error getting beers");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpPost(Name = "AddBeer")]
+    public async Task<IActionResult> AddBeer([FromBody] BeerApiModel beer)
+    {
+        try
+        {
+            var beerId = await _beerService.AddBeerAsync(beer);
+            return CreatedAtAction(nameof(GetBeerById), new {id = beerId });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating beer");
             return StatusCode(500, "Internal server error");
         }
     }

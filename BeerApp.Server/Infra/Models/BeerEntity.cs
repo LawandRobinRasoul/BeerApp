@@ -1,12 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-public record BeerDto
+public record BeerEntity
 {
     [Key]        
     public int Id { get; init; }
 
     [Required]
     public required string Name { get; init; }
+
+    [Required]
+    public string Type { get; init; } = string.Empty;
 
     [Required]
     public string Description { get; init; } = string.Empty;
@@ -16,5 +19,5 @@ public record BeerDto
     [Required]
     public  DateTimeOffset CreatedAt { get; init; }
 
-    public List<ReviewDto> Reviews { get; set; } = new();
+    public List<ReviewEntity> Reviews { get; set; } = new();
 }

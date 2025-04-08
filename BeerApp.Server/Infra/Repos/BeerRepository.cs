@@ -12,7 +12,7 @@ namespace BeerApp.Server.Infra.Repos
             _beerDbContext = beerDbContext ?? throw new ArgumentNullException(nameof(beerDbContext));
         }
 
-        public async Task<List<BeerDto>> GetBeersWithMostReviewsAsync()
+        public async Task<List<BeerEntity>> GetBeersWithMostReviewsAsync()
         {
             //TODO: Need to omptimize this query, a materialized view could be something to look into
             return await _beerDbContext.Beers
@@ -22,12 +22,12 @@ namespace BeerApp.Server.Infra.Repos
         }
 
 
-        public async Task<BeerDto?> GetBeerByIdAsync(int beerId)
+        public async Task<BeerEntity?> GetBeerByIdAsync(int beerId)
         {
             return await _beerDbContext.Beers.Where(b => b.Id == beerId).SingleOrDefaultAsync();
         }
 
-        public async Task<List<BeerDto>> GetBeersBySearch(string beerName)
+        public async Task<List<BeerEntity>> GetBeersBySearch(string beerName)
         {
             return await _beerDbContext.Beers
                 .Where(b => b.Name.Contains(beerName))
@@ -35,7 +35,7 @@ namespace BeerApp.Server.Infra.Repos
                 .ToListAsync();
         }
 
-        public async Task<List<ReviewDto>> GetReviewsByBeerIdAsync(int beerId)
+        public async Task<List<ReviewEntity>> GetReviewsByBeerIdAsync(int beerId)
         {
             return await _beerDbContext.Reviews
                 .Where(r => r.BeerId == beerId)
@@ -45,12 +45,15 @@ namespace BeerApp.Server.Infra.Repos
             
         }
 
-        public Task AddBeerAsync(BeerDto beer)
+        public async Task<int> AddBeerAsync(BeerEntity beer)
         {
-            throw new NotImplementedException();
+            _beerDbContext.Beers.Add(beer);
+            await _beerDbContext.SaveChangesAsync();
+            return beer.Id;
+
         }
 
-        public Task AddReviewAsync(ReviewDto review)
+        public Task AddReviewAsync(ReviewEntity review)
         {
             throw new NotImplementedException();
         }
@@ -65,12 +68,12 @@ namespace BeerApp.Server.Infra.Repos
             throw new NotImplementedException();
         }
 
-        public Task UpdateBeerAsync(BeerDto beer)
+        public Task UpdateBeerAsync(BeerEntity beer)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateReviewAsync(ReviewDto review)
+        public Task UpdateReviewAsync(ReviewEntity review)
         {
             throw new NotImplementedException();
         }

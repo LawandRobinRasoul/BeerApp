@@ -1,5 +1,5 @@
 
-public record ReviewDto
+public record ReviewEntity
 {
     public int Id { get; init; }
     public int BeerId { get; init; }
@@ -13,5 +13,5 @@ public record ReviewDto
     public DateTimeOffset CreatedAt { get; init; }
     public DateTimeOffset UpdatedAt { get; init; }
 
-    public BeerDto Beer { get; init; } = null!;
+    public BeerEntity Beer { get; init; } = null!;
 }

@@ -2,15 +2,15 @@
 {
     public interface IBeerRepository
     {
-        Task<List<BeerDto>> GetBeersWithMostReviewsAsync();
-        Task<List<BeerDto>> GetBeersBySearch(string beerName);
-        Task<BeerDto?> GetBeerByIdAsync(int id);
-        Task<List<ReviewDto>> GetReviewsByBeerIdAsync(int beerId);
-        Task AddBeerAsync(BeerDto beer);
-        Task UpdateBeerAsync(BeerDto beer);
+        Task<List<BeerEntity>> GetBeersWithMostReviewsAsync();
+        Task<List<BeerEntity>> GetBeersBySearch(string beerName);
+        Task<BeerEntity?> GetBeerByIdAsync(int id);
+        Task<List<ReviewEntity>> GetReviewsByBeerIdAsync(int beerId);
+        Task<int> AddBeerAsync(BeerEntity beer);
+        Task UpdateBeerAsync(BeerEntity beer);
         Task DeleteBeerAsync(int id);
-        Task AddReviewAsync(ReviewDto review);
-        Task UpdateReviewAsync(ReviewDto review);
+        Task AddReviewAsync(ReviewEntity review);
+        Task UpdateReviewAsync(ReviewEntity review);
         Task DeleteReviewAsync(int id);
     }
 }

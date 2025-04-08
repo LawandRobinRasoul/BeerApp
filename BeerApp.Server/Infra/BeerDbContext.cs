@@ -6,12 +6,12 @@ public class BeerDbContext : DbContext
     public BeerDbContext(DbContextOptions<BeerDbContext> options)
         : base(options) { }
 
-    public DbSet<BeerDto> Beers { get; set; }
-    public DbSet<ReviewDto> Reviews { get; set; }
+    public DbSet<BeerEntity> Beers { get; set; }
+    public DbSet<ReviewEntity> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ReviewDto>()
+        modelBuilder.Entity<ReviewEntity>()
             .HasOne(r => r.Beer)
             .WithMany(b => b.Reviews)
             .HasForeignKey(r => r.BeerId)
