@@ -17,7 +17,7 @@
       <v-list>
         <v-list-item title="Home" :to="'/'"></v-list-item>
         <v-list-item title="My Ratings" :to="'/ratings'"></v-list-item>
-        <v-list-item title="Favorites" :to="'/favorites'"></v-list-item>
+        <v-list-item title="Watch 3D" :to="'/3d'"></v-list-item>
       </v-list>
     </v-navigation-drawer>
 

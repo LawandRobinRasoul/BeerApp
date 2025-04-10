@@ -12,6 +12,7 @@
     <PackageJsonScriptsTypeCheck Condition="$(PackageJsonScriptsTypeCheck) == ''">vue-tsc --build</PackageJsonScriptsTypeCheck>
     <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint . --fix</PackageJsonScriptsLint>
     <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">^1.8.4</PackageJsonDependenciesAxios>
+    <PackageJsonDependenciesThree Condition="$(PackageJsonDependenciesThree) == ''">^0.175.0</PackageJsonDependenciesThree>
     <PackageJsonDependenciesVue Condition="$(PackageJsonDependenciesVue) == ''">^3.5.13</PackageJsonDependenciesVue>
     <PackageJsonDependenciesVueRouter Condition="$(PackageJsonDependenciesVueRouter) == ''">^4.5.0</PackageJsonDependenciesVueRouter>
     <PackageJsonDependenciesVuetify Condition="$(PackageJsonDependenciesVuetify) == ''">^3.7.18</PackageJsonDependenciesVuetify>
@@ -25,7 +26,7 @@
     <PackageJsonDevdependenciesJiti Condition="$(PackageJsonDevdependenciesJiti) == ''">^2.4.2</PackageJsonDevdependenciesJiti>
     <PackageJsonDevdependenciesNpmRunAll2 Condition="$(PackageJsonDevdependenciesNpmRunAll2) == ''">^7.0.2</PackageJsonDevdependenciesNpmRunAll2>
     <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">~5.8.0</PackageJsonDevdependenciesTypescript>
-    <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^6.2.1</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^6.2.5</PackageJsonDevdependenciesVite>
     <PackageJsonDevdependenciesVitePluginVueDevtools Condition="$(PackageJsonDevdependenciesVitePluginVueDevtools) == ''">^7.7.2</PackageJsonDevdependenciesVitePluginVueDevtools>
     <PackageJsonDevdependenciesVueTsc Condition="$(PackageJsonDevdependenciesVueTsc) == ''">^2.2.8</PackageJsonDevdependenciesVueTsc>
   </PropertyGroup>
