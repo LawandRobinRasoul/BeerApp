@@ -14,7 +14,7 @@
         class="beer-card"
         @click="openModal(beer)"
       >
-        <img :src="beer.image" alt="Beer Image" class="beer-image" />
+        <img :src="beer.imageUrl" alt="Beer Image" class="beer-image" />
         <h3>{{ beer.name }}</h3>
         <p>Rating: {{ beer.rating }}</p>
       </div>
@@ -34,7 +34,7 @@ import { GetBeers, GetBeersBySearch } from '@/beerApiClient.ts';
 interface Beer {
   name: string;
   rating: string;
-  image: string;
+  imageUrl: string;
   description: string;
 }
 

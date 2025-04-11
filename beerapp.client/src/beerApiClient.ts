@@ -7,7 +7,7 @@ interface Beer {
   id: number;
   name: string;
   rating: string;
-  image: string;
+  imageUrl: string;
   description: string;
   createdAt: string;
 }
