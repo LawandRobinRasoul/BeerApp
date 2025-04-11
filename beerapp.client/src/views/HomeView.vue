@@ -3,12 +3,13 @@
     <!-- Search Bar -->
     <div class="search-bar">
       <input type="text" v-model="searchQuery" placeholder="Search beers..." />
+      <button v-on:click="searchBeers">Search</button>
     </div>
 
     <!-- Beer Cards -->
     <div class="beer-cards">
       <div
-        v-for="beer in filteredBeers"
+        v-for="beer in beers"
         :key="beer.name"
         class="beer-card"
         @click="openModal(beer)"
@@ -27,7 +28,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import BeerCard from '@/components/BeerCard.vue';
-import { GetBeers } from '@/beerApiClient.ts';
+import { GetBeers, GetBeersBySearch } from '@/beerApiClient.ts';
 
 // Define the Beer interface for TypeScript
 interface Beer {
@@ -46,12 +47,11 @@ const beers = ref<Beer[]>([]); // Initialize as an empty array
 // Reactive state for selected beer (for modal)
 const selectedBeer = ref<Beer | null>(null);
 
-// Computed property to filter beers based on search query
-const filteredBeers = computed(() =>
-  beers.value.filter((beer) =>
-    beer.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-);
+const searchBeers = async () => {
+  if (searchQuery.value) {
+    beers.value = await GetBeersBySearch(searchQuery.value);
+  }
+};
 
 // Function to open the modal with the selected beer
 const openModal = (beer: Beer) => {
