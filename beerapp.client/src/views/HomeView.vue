@@ -3,7 +3,7 @@
     <!-- Search Bar -->
     <div class="search-bar">
       <input type="text" v-model="searchQuery" placeholder="Search beers..." />
-      <button v-on:click="searchBeers">Search</button>
+      <button class="search-btn" v-on:click="searchBeers">Search</button>
     </div>
 
     <!-- Beer Cards -->
@@ -80,10 +80,19 @@ onMounted(async () => {
   margin-bottom: 20px;
 }
 
+.search-btn {
+  background-color: #ffd700;
+  border: 1px solid black;
+  border-radius: 0px 20px 20px 0px;
+  padding: 1%;
+}
+
 .search-bar input {
   padding: 8px;
   font-size: 16px;
-  width: 200px;
+  width: 15em;
+  border: 1px solid black;
+  border-radius: 20px 0px 0px 20px;
 }
 
 .beer-cards {
