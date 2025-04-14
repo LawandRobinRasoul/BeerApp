@@ -40,6 +40,17 @@
           />
         </div>
       </div>
+      <div class="rating-item">
+          <label for="overAllrating">Rating: {{ ratings.overAllrating }}</label>
+          <input
+            id="overAllrating"
+            type="range"
+            min="1"
+            max="5"
+            v-model="ratings.overAllrating"
+          />
+        </div>
+      </div>
 
       <!-- Review Textbox -->
       <div class="review-section">
@@ -59,7 +70,7 @@
 
 <script setup lang="ts">
 import {reactive, ref } from 'vue';
-import { GetBeerReviewsById } from '@/beerApiClient.ts';
+import { CreateReview, type Review } from '@/beerApiClient.ts';
 
 const props = defineProps({
   beer: {
@@ -79,14 +90,25 @@ const ratings = reactive({
   bitterness: 5,
   sweetness: 5,
   fruitiness: 5,
+  overAllrating: 5,
 });
 
 // Review text
 const review = ref('');
 
 // Method to handle rating submission
-const submitRating = () => {
+const submitRating = async () => {
 
+  var reviewRequest: Review = {
+    beerId: props.beer.id,
+    bitternessScore: ratings.bitterness,
+    sweetnessScore: ratings.sweetness,
+    fruitinessScore: ratings.fruitiness,
+    username: "Anonymous",
+    rating: ratings.overAllrating,
+    comment: review.value,
+  };
+  await CreateReview(reviewRequest);
   console.log('Rating submitted:', { ...ratings, review: review.value });
 };
 </script>

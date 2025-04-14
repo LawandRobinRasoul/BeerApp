@@ -12,17 +12,14 @@ interface Beer {
   createdAt: string;
 }
 
-interface Review {
-  id: number;
+export interface Review {
   beerId: number;
   rating: number;
-  reviewerName: string;
+  username: string;
   comment: string;
-  bitternesScore: number;
+  bitternessScore: number;
   fruitinessScore: number;
   sweetnessScore: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 
@@ -77,7 +74,17 @@ export const CreateBeer = async (beer: Beer) => {
     console.log(response.status);
     return response.data as Beer[];
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error adding data:', error);
+    return [];
+  }
+};
+
+export const CreateReview = async (review: Review) => {
+  try {
+    const response = await axios.post(`${baseUrlApi}/review`, );
+    console.log(response.status);
+  } catch (error) {
+    console.error('Error adding data:', error);
     return [];
   }
 };
