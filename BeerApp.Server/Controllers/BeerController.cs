@@ -65,7 +65,7 @@ public class BeerController : ControllerBase
         }
     }
 
-    [HttpGet("{id}/reviews", Name = "GetBeerReviews")]
+    [HttpGet("{id}/review", Name = "GetBeerReviews")]
     public async Task<IActionResult> GetBeerReviewsById([FromRoute] string id)
     {
         try
@@ -96,6 +96,21 @@ public class BeerController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating beer");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpPost("review", Name = "AddBeerReview")]
+    public async Task<IActionResult> AddBeerReview([FromBody] ReviewApiModel review)
+    {
+        try
+        {
+            var reviewId = await _beerService.AddReviewAsync(review);
+            return CreatedAtAction(nameof(AddBeerReview), new { id = reviewId });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating review");
             return StatusCode(500, "Internal server error");
         }
     }

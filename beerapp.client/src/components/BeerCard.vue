@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import {reactive, ref } from 'vue';
+import { GetBeerReviewsById } from '@/beerApiClient.ts';
 
 const props = defineProps({
   beer: {
@@ -85,6 +86,7 @@ const review = ref('');
 
 // Method to handle rating submission
 const submitRating = () => {
+
   console.log('Rating submitted:', { ...ratings, review: review.value });
 };
 </script>

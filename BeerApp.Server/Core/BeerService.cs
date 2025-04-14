@@ -30,6 +30,21 @@ namespace BeerApp.Server.Core
             return await _beerRepository.GetReviewsByBeerIdAsync(beerId);   
         }
 
+        public async Task<int> AddReviewAsync(ReviewApiModel reviewApiModel)
+        {
+            var reviewEntity = new ReviewEntity
+            {
+                BeerId = reviewApiModel.BeerId,
+                Reviewer = reviewApiModel.username ?? "Anonym",
+                BitternesScore = reviewApiModel.BitternessScore,
+                FruitinessScore = reviewApiModel.FruitinessScore,
+                SweetnessScore  = reviewApiModel.SweetnessScore,
+                Rating = reviewApiModel.Rating,
+                Comment = reviewApiModel.Comment
+            };
+            return await _beerRepository.AddReviewAsync(reviewEntity);
+        }
+
         public async Task<int> AddBeerAsync (BeerApiModel beerApiModel)
         {
             var beerEntity = new BeerEntity

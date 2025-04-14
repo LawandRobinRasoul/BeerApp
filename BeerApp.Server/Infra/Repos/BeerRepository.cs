@@ -53,9 +53,11 @@ namespace BeerApp.Server.Infra.Repos
 
         }
 
-        public Task AddReviewAsync(ReviewEntity review)
+        public async Task<int> AddReviewAsync(ReviewEntity review)
         {
-            throw new NotImplementedException();
+            _beerDbContext.Reviews.Add(review);
+            await _beerDbContext.SaveChangesAsync();
+            return review.Id;
         }
 
         public Task DeleteBeerAsync(int id)

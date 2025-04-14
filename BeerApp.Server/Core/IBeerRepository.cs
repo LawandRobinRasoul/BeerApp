@@ -9,7 +9,7 @@
         Task<int> AddBeerAsync(BeerEntity beer);
         Task UpdateBeerAsync(BeerEntity beer);
         Task DeleteBeerAsync(int id);
-        Task AddReviewAsync(ReviewEntity review);
+        Task<int> AddReviewAsync(ReviewEntity review);
         Task UpdateReviewAsync(ReviewEntity review);
         Task DeleteReviewAsync(int id);
     }
