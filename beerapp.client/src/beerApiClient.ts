@@ -81,7 +81,7 @@ export const CreateBeer = async (beer: Beer) => {
 
 export const CreateReview = async (review: Review) => {
   try {
-    const response = await axios.post(`${baseUrlApi}/review`, );
+    const response = await axios.post(`${baseUrlApi}/review`, review );
     console.log(response.status);
   } catch (error) {
     console.error('Error adding data:', error);
