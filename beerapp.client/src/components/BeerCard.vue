@@ -38,7 +38,6 @@
             max="5"
             v-model="ratings.fruitiness"
           />
-        </div>
       </div>
       <div class="rating-item">
           <label for="overAllrating">Rating: {{ ratings.overAllrating }}</label>
