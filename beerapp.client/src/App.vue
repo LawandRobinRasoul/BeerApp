@@ -10,6 +10,9 @@
         </div>
       </v-app-bar-nav-icon>
       <v-toolbar-title>Beer Review</v-toolbar-title>
+      <login />
+      <loguot />
+      <profile />
     </v-app-bar>
 
     <!-- Sidebar (Navigation Drawer) -->
@@ -31,6 +34,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useDisplay } from 'vuetify';
+import login from './login/login.vue';
+import loguot from './login/logout.vue';
+import profile from './login/profile.vue';
 
 const drawer = ref(true);
 const { smAndDown } = useDisplay();
