@@ -2,7 +2,7 @@
   <div class="modal-overlay" @click.self="close">
     <div class="modal-content">
       <button class="close-button" @click="close">X</button>
-      <img :src="beer.image" alt="Beer Image" class="beer-image" />
+      <img :src="beer.imageUrl" alt="Beer Image" class="beer-image" />
       <h3>{{ beer.name }}</h3>
       <p>Rating: {{ beer.rating }}</p>
       <p>{{ beer.description }}</p>
