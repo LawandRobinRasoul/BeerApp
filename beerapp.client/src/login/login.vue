@@ -10,6 +10,11 @@
     const auth0 = useAuth0();
 
     const login = () => {
-      auth0.loginWithRedirect();
+      auth0.loginWithRedirect({
+  authorizationParams: {
+    audience: 'https://dev-konzewxurlz5v74y.us.auth0.com/api/v2/',
+    scope: 'read:users',
+  },
+});
     };
 </script>

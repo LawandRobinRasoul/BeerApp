@@ -1,9 +1,11 @@
 using BeerApp.Server.Controllers.ApiModels.Request;
 using BeerApp.Server.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class BeerController : ControllerBase
 {
     private readonly ILogger<BeerController> _logger;

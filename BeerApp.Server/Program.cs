@@ -1,5 +1,6 @@
 using BeerApp.Server.Core;
 using BeerApp.Server.Infra.Repos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var allowedOrigins = "AllowedOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: allowedOrigins,
@@ -17,6 +19,28 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://dev-konzewxurlz5v74y.us.auth0.com";
+        options.Audience = "https://dev-konzewxurlz5v74y.us.auth0.com/api/v2/";
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        };
+    });
 
 builder.Services.AddSwaggerGen();
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 // Access the base URL from the environment variable
 const baseUrlApi = import.meta.env.VITE_BEER_API_URL
@@ -22,10 +23,19 @@ export interface Review {
   sweetnessScore: number;
 }
 
-
 export const GetBeers = async () => {
   try {
-    const response = await axios.get(baseUrlApi);
+    const auth0 = useAuth0();
+    const response = await axios.get(baseUrlApi,
+    {
+      headers: {
+        Authorization: `Bearer ${await auth0.getAccessTokenSilently({
+          authorizationParams: {
+            audience: 'https://dev-konzewxurlz5v74y.us.auth0.com/api/v2/'
+          }
+        })}`,
+      }
+    });
     console.log(response.status);
     return response.data as Beer[];
   } catch (error) {
