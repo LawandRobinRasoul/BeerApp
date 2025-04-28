@@ -1,6 +1,6 @@
 import { Clock, Camera, Scene, WebGLRenderer } from 'three';
 
-const setSize = (container: Element, camera: Camera, renderer: WebGLRenderer) => {
+const setSize = (container: Element, camera: any, renderer: WebGLRenderer) => {
    camera.aspect = window.innerWidth / window.innerHeight;
    camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
