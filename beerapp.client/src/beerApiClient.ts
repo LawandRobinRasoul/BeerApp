@@ -4,6 +4,8 @@ import { useAuth0 } from '@auth0/auth0-vue';
 // Access the base URL from the environment variable
 const baseUrlApi = import.meta.env.VITE_BEER_API_URL
 
+const authAudiance = import.meta.env.VITE_AUTH0_AUDIENCE
+
 interface Beer {
   id: number;
   name: string;
@@ -31,7 +33,7 @@ export const GetBeers = async () => {
       headers: {
         Authorization: `Bearer ${await auth0.getAccessTokenSilently({
           authorizationParams: {
-            audience: 'https://dev-konzewxurlz5v74y.us.auth0.com/api/v2/'
+            audience: authAudiance
           }
         })}`,
       }
