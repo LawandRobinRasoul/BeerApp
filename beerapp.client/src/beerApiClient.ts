@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-vue';
 
 // Access the base URL from the environment variable
-const baseUrlApi = import.meta.env.VITE_BEER_API_URL
+const baseUrlApi = import.meta.env.VITE_BEER_API_URL;
 
-const authAudiance = import.meta.env.VITE_AUTH0_AUDIENCE
+const authAudiance = import.meta.env.VITE_AUTH0_AUDIENCE;
 
 interface Beer {
   id: number;
@@ -25,18 +25,27 @@ export interface Review {
   sweetnessScore: number;
 }
 
+let accessToken: string | null = null;
+
+const getAccessToken = async () => {
+  if (!accessToken) {
+    const auth0 = useAuth0();
+    accessToken = await auth0.getAccessTokenSilently({
+      authorizationParams: {
+        audience: authAudiance,
+      },
+    });
+  }
+  return accessToken;
+};
+
 export const GetBeers = async () => {
   try {
-    const auth0 = useAuth0();
-    const response = await axios.get(baseUrlApi,
-    {
+    const token = await getAccessToken();
+    const response = await axios.get(baseUrlApi, {
       headers: {
-        Authorization: `Bearer ${await auth0.getAccessTokenSilently({
-          authorizationParams: {
-            audience: authAudiance
-          }
-        })}`,
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     console.log(response.status);
     return response.data as Beer[];
@@ -48,7 +57,12 @@ export const GetBeers = async () => {
 
 export const GetBeersBySearch = async (searchQuery: string) => {
   try {
-    const response = await axios.get(`${baseUrlApi}/search?beerName=${encodeURIComponent(searchQuery)}`);
+    const token = await getAccessToken();
+    const response = await axios.get(`${baseUrlApi}/search?beerName=${encodeURIComponent(searchQuery)}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.status);
     return response.data as Beer[];
   } catch (error) {
@@ -59,7 +73,12 @@ export const GetBeersBySearch = async (searchQuery: string) => {
 
 export const GetBeerById = async (id: number) => {
   try {
-    const response = await axios.get(`${baseUrlApi}/${encodeURIComponent(id)}`);
+    const token = await getAccessToken();
+    const response = await axios.get(`${baseUrlApi}/${encodeURIComponent(id)}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.status);
     return response.data as Beer;
   } catch (error) {
@@ -68,10 +87,14 @@ export const GetBeerById = async (id: number) => {
   }
 };
 
-
 export const GetBeerReviewsById = async (id: number) => {
   try {
-    const response = await axios.post(`${baseUrlApi}/${encodeURIComponent(id)}/reviews`);
+    const token = await getAccessToken();
+    const response = await axios.post(`${baseUrlApi}/${encodeURIComponent(id)}/reviews`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.status);
     return response.data as Review[];
   } catch (error) {
@@ -82,7 +105,12 @@ export const GetBeerReviewsById = async (id: number) => {
 
 export const CreateBeer = async (beer: Beer) => {
   try {
-    const response = await axios.post(`${baseUrlApi}`, beer);
+    const token = await getAccessToken();
+    const response = await axios.post(`${baseUrlApi}`, beer, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.status);
     return response.data as Beer[];
   } catch (error) {
@@ -93,7 +121,12 @@ export const CreateBeer = async (beer: Beer) => {
 
 export const CreateReview = async (review: Review) => {
   try {
-    const response = await axios.post(`${baseUrlApi}/review`, review );
+    const token = await getAccessToken();
+    const response = await axios.post(`${baseUrlApi}/review`, review, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response.status);
   } catch (error) {
     console.error('Error adding data:', error);
